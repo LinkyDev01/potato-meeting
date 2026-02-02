@@ -134,6 +134,46 @@ const resultData = {
 
 let currentQuestion = 0;
 let scores = {};
+let currentResultType = '';
+
+// 페이지 로드 시 URL 파라미터 체크
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const resultParam = params.get('result');
+
+  if (resultParam && resultData[resultParam]) {
+    currentResultType = resultParam;
+    showResultDirect(resultParam);
+  }
+});
+
+function showResultDirect(resultType) {
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('quizScreen').style.display = 'none';
+  document.getElementById('resultScreen').style.display = 'block';
+
+  const result = resultData[resultType];
+
+  document.getElementById('resultImage').innerHTML = `<img src="${result.image}" alt="${result.title}">`;
+  document.getElementById('resultImage').style.background = result.bg;
+  document.getElementById('resultTitle').textContent = result.title;
+  document.getElementById('resultSubtitle').textContent = result.subtitle;
+
+  document.getElementById('resultTraits').innerHTML = `
+    <h4>💕 연애 스타일</h4>
+    <ul>
+      ${result.traits.map(t => `<li>${t}</li>`).join('')}
+    </ul>
+  `;
+
+  document.getElementById('sauceMatch').innerHTML = `
+    💘 <span>연애 요약:</span> ${result.loveStyle}
+  `;
+
+  document.getElementById('brandMatch').innerHTML = `
+    🍟 <span>추천 브랜드:</span> ${result.brand}
+  `;
+}
 
 function startQuiz() {
   document.getElementById('startScreen').style.display = 'none';
@@ -228,15 +268,16 @@ function applyMatching() {
 function retryQuiz() {
   document.getElementById('resultScreen').style.display = 'none';
   document.getElementById('startScreen').style.display = 'block';
+  // URL 파라미터 제거
+  window.history.replaceState({}, '', window.location.pathname);
 }
-
-let currentResultType = '';
 
 function shareResult() {
   const result = resultData[currentResultType];
   const title = '나의 감BTI 유형은?';
   const text = `나의 감BTI 결과는 ${result.title}!\n"${result.subtitle.replace(/"/g, '')}"`;
-  const url = window.location.href;
+  const baseUrl = window.location.origin + window.location.pathname;
+  const url = `${baseUrl}?result=${currentResultType}`;
 
   if (navigator.share) {
     navigator.share({
