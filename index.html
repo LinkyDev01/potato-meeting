@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나의 감자튀김 유형은? 🍟</title>
+  <link rel="stylesheet" href="./index.css" />
+  <script src="./index.js" defer></script>
+</head>
+<body>
+
+<div class="container">
+  <!-- 시작 화면 -->
+  <div class="start-screen" id="startScreen">
+    <h1>나의 감BTI 유형은?</h1>
+    <div class="emoji">🍟</div>
+    <p>8가지 질문으로 알아보는<br>나와 찰떡인 감자튀김 스타일!</p>
+    <button class="start-btn" onclick="startQuiz()">테스트 시작하기</button>
+  </div>
+
+  <!-- 퀴즈 화면 -->
+  <div class="quiz-screen" id="quizScreen">
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    <div class="question-number" id="questionNumber">1 / 8</div>
+    <div class="question-card">
+      <h2 id="questionText"></h2>
+      <div class="options" id="options"></div>
+    </div>
+  </div>
+
+  <!-- 결과 화면 -->
+  <div class="result-screen" id="resultScreen">
+    <div class="result-card">
+      <div class="result-image" id="resultImage"></div>
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-subtitle" id="resultSubtitle"></div>
+      <div class="brand-match" id="brandMatch"></div>
+      <div class="result-traits" id="resultTraits"></div>
+      <div class="sauce-match" id="sauceMatch"></div>
+      <button class="matching-btn" onclick="applyMatching()">🍟 감자튀김 소개팅 신청하기</button>
+      <button class="retry-btn" onclick="retryQuiz()">다시 테스트하기</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
