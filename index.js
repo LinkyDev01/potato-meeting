@@ -1,27 +1,27 @@
 const questions = [
   {
-    text: "햄버거 세트를 주문했다. 가장 먼저 손이 가는 것은?",
+    text: "햄버거 세트를 주문했다. <br/>가장 먼저 손이 가는 것은?",
     options: [
       { text: "갓 튀겨져 나온 뜨겁고 짭조름한 감자튀김", values: ["giljjuk", "jjapjjal", "mulgyeol"] },
       { text: "육즙 가득한 햄버거 (감튀는 거들 뿐)", values: ["deumjik", "bandal", "dongguri"] }
     ]
   },
   {
-    text: "내가 선호하는 감자튀김의 '이상적인 식감'은?",
+    text: "내가 선호하는 감자튀김의 <br/>'이상적인 식감'은?",
     options: [
       { text: "입안이 얼얼할 정도로 공격적인 '바삭함'", values: ["giljjuk", "jjapjjal", "mulgyeol"] },
       { text: "씹는 순간 입안에서 사르르 녹는 '포슬포슬함'", values: ["deumjik", "bandal", "dongguri"] }
     ]
   },
   {
-    text: "감자튀김 위에 뿌려진 '소금'에 대한 나의 철학은?",
+    text: "감자튀김 위에 뿌려진 '소금'에 대한 <br/> 나의 철학은?",
     options: [
       { text: "소금기가 혀를 찌를 정도로 짭짤해야 한다", values: ["giljjuk", "jjapjjal"] },
       { text: "감자 본연의 맛을 가리지 않게 담백해야 한다", values: ["deumjik", "myeongpum", "bandal"] }
     ]
   },
   {
-    text: "케첩이 기본으로 제공되었다. 당신의 선택은?",
+    text: "케첩이 기본으로 제공되었다. <br/> 당신의 선택은?",
     options: [
       { text: "주는 대로 케첩만 찍어 먹는다 (순정파)", values: ["giljjuk", "deumjik", "bandal"] },
       { text: "밀크쉐이크, 마요, 치즈 소스 등 새 조합을 찾는다 (미식가파)", values: ["jjapjjal", "myeongpum", "cheese", "mulgyeol"] }
@@ -49,7 +49,7 @@ const questions = [
     ]
   },
   {
-    text: "새로운 버거집에 갔다. 감튀 메뉴를 고를 때 기준은?",
+    text: "새로운 버거집에 갔다. <br/>감튀 메뉴를 고를 때 기준은?",
     options: [
       { text: "그 집에서만 파는 특이한 토핑이나 소스가 있는지", values: ["myeongpum", "cheese", "jjapjjal"] },
       { text: "기본 감튀가 얼마나 신선하고 깨끗하게 튀겨졌는지", values: ["giljjuk", "deumjik", "bandal"] }
@@ -187,7 +187,7 @@ function showQuestion() {
   const q = questions[currentQuestion];
   document.getElementById('questionNumber').textContent = `${currentQuestion + 1} / ${questions.length}`;
   document.getElementById('progress').style.width = `${((currentQuestion) / questions.length) * 100}%`;
-  document.getElementById('questionText').textContent = q.text;
+  document.getElementById('questionText').innerHTML = q.text;
 
   const optionsDiv = document.getElementById('options');
   optionsDiv.innerHTML = '';
