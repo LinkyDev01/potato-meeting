@@ -196,6 +196,7 @@ function showResult() {
     }
   }
 
+  currentResultType = resultType;
   const result = resultData[resultType];
 
   document.getElementById('resultImage').innerHTML = `<img src="${result.image}" alt="${result.title}">`;
@@ -227,4 +228,33 @@ function applyMatching() {
 function retryQuiz() {
   document.getElementById('resultScreen').style.display = 'none';
   document.getElementById('startScreen').style.display = 'block';
+}
+
+let currentResultType = '';
+
+function shareResult() {
+  const result = resultData[currentResultType];
+  const title = '나의 감BTI 유형은?';
+  const text = `나의 감BTI 결과는 ${result.title}!\n"${result.subtitle.replace(/"/g, '')}"`;
+  const url = window.location.href;
+
+  if (navigator.share) {
+    navigator.share({
+      title: title,
+      text: text,
+      url: url
+    }).catch(() => {
+      copyToClipboard(url);
+    });
+  } else {
+    copyToClipboard(url);
+  }
+}
+
+function copyToClipboard(url) {
+  navigator.clipboard.writeText(url).then(() => {
+    alert('링크가 복사되었습니다! 📋');
+  }).catch(() => {
+    prompt('아래 링크를 복사하세요:', url);
+  });
 }

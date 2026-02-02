@@ -116,14 +116,19 @@ body {
   transition: all 0.2s ease;
   text-align: left;
   color: #333;
+  -webkit-tap-highlight-color: transparent;
 }
-.option-btn:hover {
-  border-color: #ff6b6b;
-  background: #fff5f5;
-  transform: translateX(5px);
+@media (hover: hover) {
+  .option-btn:hover {
+    border-color: #ff6b6b;
+    background: #fff5f5;
+    transform: translateX(5px);
+  }
 }
 .option-btn:active {
   transform: scale(0.98);
+  border-color: #ff6b6b;
+  background: #fff5f5;
 }
 /* 결과 화면 */
 .result-screen {
@@ -194,7 +199,6 @@ body {
   color: #ff6b6b;
 }
 .sauce-match {
-  background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
   border-radius: 12px;
   padding: 15px;
   margin: 15px 0;
@@ -226,20 +230,58 @@ body {
   margin-top: 20px;
   box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
   transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 6px 25px rgba(238, 90, 36, 0.6);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
+  }
 }
 .matching-btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.03);
   box-shadow: 0 6px 20px rgba(238, 90, 36, 0.5);
+  animation: none;
 }
-.retry-btn {
-  background: transparent;
-  border: 2px solid #ddd;
-  color: #666;
-  padding: 12px 30px;
+.button-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+.share-btn {
+  flex: 1;
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 14px 20px;
   font-size: 0.95rem;
   border-radius: 50px;
   cursor: pointer;
-  margin-top: 15px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+.share-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+.retry-btn {
+  flex: 1;
+  background: transparent;
+  border: 2px solid #ddd;
+  color: #666;
+  padding: 14px 20px;
+  font-size: 0.95rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
   transition: all 0.3s ease;
 }
 .retry-btn:hover {
