@@ -136,6 +136,19 @@ let currentQuestion = 0;
 let scores = {};
 let currentResultType = '';
 
+// 각 타입이 받을 수 있는 최대 점수를 미리 계산 (정규화에 사용)
+const maxPossibleScores = (() => {
+  const max = {};
+  questions.forEach(q => {
+    q.options.forEach(opt => {
+      opt.values.forEach(v => {
+        max[v] = (max[v] || 0) + 1;
+      });
+    });
+  });
+  return max;
+})();
+
 // 페이지 로드 시 URL 파라미터 체크
 window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
@@ -225,16 +238,25 @@ function showResult() {
   document.getElementById('quizScreen').style.display = 'none';
   document.getElementById('resultScreen').style.display = 'block';
 
-  // Find the result with highest score
-  let maxScore = 0;
-  let resultType = 'giljjuk';
+  // 정규화된 점수로 승자 결정 (출현 횟수 불균형 보정)
+  let bestNormalized = -1;
+  let candidates = [];
 
-  for (const type in scores) {
-    if (scores[type] > maxScore) {
-      maxScore = scores[type];
-      resultType = type;
+  for (const type in resultData) {
+    const raw = scores[type] || 0;
+    const max = maxPossibleScores[type] || 1;
+    const normalized = raw / max;
+
+    if (normalized > bestNormalized) {
+      bestNormalized = normalized;
+      candidates = [type];
+    } else if (normalized === bestNormalized) {
+      candidates.push(type);
     }
   }
+
+  // 동점 시 랜덤 선택
+  const resultType = candidates[Math.floor(Math.random() * candidates.length)];
 
   currentResultType = resultType;
   const result = resultData[resultType];
